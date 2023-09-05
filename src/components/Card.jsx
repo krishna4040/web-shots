@@ -1,9 +1,11 @@
 import { useDispatch, useSelector } from "react-redux";
-import {like,unlike} from './store/slice/slice'
+import { like, unlike } from './store/slice/slice'
+import { AiFillHeart} from 'react-icons/ai'
+import toast from "react-hot-toast";
 
-export default function Card({ author, content, desc, date, source, title, url, img , id }) {
+export default function Card({ author, content, desc, date, source, title, url, img, id }) {
 
-    const {liked} = useSelector(state => state);
+    const { liked } = useSelector(state => state);
     const dispacth = useDispatch();
 
     const likeHandler = () => {
@@ -19,10 +21,20 @@ export default function Card({ author, content, desc, date, source, title, url, 
             img: img
         };
         dispacth(like(post));
+        toast.success("Post liked!!",{
+            style:{
+                fontFamily: 'ubuntu'
+            }
+        });
     }
 
     const unlikeHandler = () => {
         dispacth(unlike(id));
+        toast.error("post unLiked!!",{
+            style:{
+                fontFamily: 'ubuntu',
+            }
+        });
     }
 
     if (img == null) {
@@ -34,7 +46,17 @@ export default function Card({ author, content, desc, date, source, title, url, 
 
             <h1 className="text-xl font-bold">{title.split(' ').slice(0, 5).join(' ')}...</h1>
 
-            <div className="flex items-center justify-center w-full overflow-hidden"><img src={img} alt="#" className="w-full" /></div>
+            <div className="relative flex items-center justify-center w-full overflow-hidden group">
+
+                <img src={img} alt="#" className="w-full" />
+
+                {
+                    liked.some(item => item.id === id) ?
+                        <button className="absolute bottom-0 right-0 lg:hidden group-hover:block" onClick={unlikeHandler}><AiFillHeart className="text-4xl text-red-500" /></button> :
+                        <button className="absolute bottom-0 right-0 lg:hidden group-hover:block" onClick={likeHandler}><AiFillHeart className="text-4xl text-red-200" /></button>
+                }
+
+            </div>
 
             <p className="">{desc}</p>
 
@@ -46,7 +68,7 @@ export default function Card({ author, content, desc, date, source, title, url, 
 
                 <span className="text-lg font-bold">Dated:</span>
 
-                <span>{date.split('').slice(0,10).join('')}</span>
+                <span>{date.split('').slice(0, 10).join('')}</span>
 
             </div>
 
@@ -57,12 +79,6 @@ export default function Card({ author, content, desc, date, source, title, url, 
                 <span>{author}</span>
 
             </div>
-
-            {
-                liked.some(item => item.id === id) ? 
-                <button onClick={unlikeHandler}>unlike</button>:
-                <button onClick={likeHandler}>like</button>
-            }
 
         </div>
     )
