@@ -1,4 +1,29 @@
-export default function Card({ author, content, desc, date, source, title, url, img }) {
+import { useDispatch, useSelector } from "react-redux";
+import {like,unlike} from './store/slice/slice'
+
+export default function Card({ author, content, desc, date, source, title, url, img , id }) {
+
+    const {liked} = useSelector(state => state);
+    const dispacth = useDispatch();
+
+    const likeHandler = () => {
+        const post = {
+            id: id,
+            author: author,
+            content: content,
+            desc: desc,
+            date: date,
+            source: source,
+            title: title,
+            url: url,
+            img: img
+        };
+        dispacth(like(post));
+    }
+
+    const unlikeHandler = () => {
+        dispacth(unlike(id));
+    }
 
     if (img == null) {
         return;
@@ -32,6 +57,12 @@ export default function Card({ author, content, desc, date, source, title, url, 
                 <span>{author}</span>
 
             </div>
+
+            {
+                liked.some(item => item.id === id) ? 
+                <button onClick={unlikeHandler}>unlike</button>:
+                <button onClick={likeHandler}>like</button>
+            }
 
         </div>
     )

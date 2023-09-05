@@ -14,6 +14,7 @@ export default function News({articles}) {
                         title={element.title}
                         url={element.url}
                         img={element.urlToImage}
+                        id={index}
                         key={index}
                     />);
                 })
