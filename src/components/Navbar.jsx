@@ -1,5 +1,4 @@
 import { BsFillMoonStarsFill , BsFillSunFill , BsFillPostcardHeartFill } from 'react-icons/bs'
-import {AiOutlineMenu} from 'react-icons/ai'
 import {NavLink} from 'react-router-dom'
 
 export default function NavBar({ dark , setDark }) {
@@ -12,13 +11,13 @@ export default function NavBar({ dark , setDark }) {
 
                     <img src="https://www.hindustantimes.com/favicon.ico" alt="#" />
 
-                    <h1>Hindustan Times</h1>
+                    <h1 className='hidden lg:block'>Hindustan Times</h1>
 
                 </div>
 
-                <div>
+                <div className='ml-2'>
 
-                    <ul className='hidden gap-5 lg:flex'>
+                    <ul className='flex gap-3 lg:gap-5'>
 
                         <li><NavLink to='/'>Home</NavLink></li>
 
@@ -28,15 +27,11 @@ export default function NavBar({ dark , setDark }) {
 
                     </ul>
 
-                    <button className='lg:hidden'>
-                        <AiOutlineMenu />
-                    </button>
-
                 </div>
 
-                <div className='flex items-center justify-center gap-3'>
+                <div className='flex items-center justify-center gap-2 lg:gap-3'>
 
-                    <NavLink to='/liked'><button><BsFillPostcardHeartFill className='text-4xl'/></button></NavLink>
+                    <NavLink to='/liked'><button className='px-4 py-2'><BsFillPostcardHeartFill className='text-4xl dark:text-white'/></button></NavLink>
 
                     <button className='px-4 py-2 border rounded-md bg-slate-100 dark:bg-slate-900' onClick={() => {setDark(prev => !prev)}}>
                         {dark ? <BsFillSunFill className='text-white'/> : <BsFillMoonStarsFill/>}
