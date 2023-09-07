@@ -34,7 +34,7 @@ export default function Header({ setTopic , fecthLatest }) {
             </div>
             <div className="flex items-center justify-center gap-2">
                 <input type="text" name="search" onChange={changeHandler} value={inp.search} className="w-40 px-4 py-2 rounded-md bg-slate-200" placeholder="Enter to Search" />
-                <label htmlFor="search" className="dark:text-white" onClick={() => {setTopic(inp.search);setClicked('')}}><BiSearchAlt/></label>
+                <label htmlFor="search" className="dark:text-white" onClick={() => {setTopic(inp.search);setClicked('')}}><BiSearchAlt className="text-3xl"/></label>
             </div>
         </div>
     )
