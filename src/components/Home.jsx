@@ -17,7 +17,7 @@ export default function Home({loading,setLoading}) {
         setLoading(true);
         const url = `${topicRelated}q=${topic}&apiKey=${key}`;
         try {
-            const response = await axios.request(url);
+            const response = await axios.get(url);
             setArticles(response?.data?.articles);
             setLoading(false);
         } catch (error) {
@@ -29,7 +29,7 @@ export default function Home({loading,setLoading}) {
         setLoading(true);
         const url = latestAround;
         try {
-            const response = await axios.request(url);
+            const response = await axios.get(url);
             setArticles(response?.data?.articles);
             setLoading(false);
         } catch (error) {
